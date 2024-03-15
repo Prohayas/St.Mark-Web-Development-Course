@@ -1,0 +1,24 @@
+.card{
+    display:flex;
+    position: relative;
+    border: 5px solid violet;
+    height: 500px;
+    width: 200px;
+    background-color: black;
+}
+.card-banner{
+    position:absolute;
+}
+*{
+    margin: 0;
+    padding: 0;     
+}
+nav{
+    display: flex;
+    justify-content: space-evenly;
+}
+nav ul{
+    display:flex;
+    list-style: none;
+    column-gap: 5px;
+}
