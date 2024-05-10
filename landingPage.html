@@ -1,66 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .img{
-      background-size: 50vh;
-    }
-  </style>
-</head>
-<body>
-  <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand text-dark" href="#"><img width="50px" height="50px" class="d-inline-block" src="st.mark.jpg" /> St.Mark</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Contact</a>
-          </li>
-        </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Lovers</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Custom styles go here */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f9fa;
+        color: #333333;
+      }
+      /* Navbar */
+      .navbar {
+        background-color: #563d7c;
+      }
+      .navbar-brand,
+      .navbar-nav .nav-link {
+        color: #ffffff;
+      }
+      /* Hero Section */
+      .hero-section {
+        background-image: url("coffee-hero-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .hero-section h1 {
+        font-size: 3.5rem;
+      }
+      .hero-section p {
+        font-size: 1.25rem;
+        margin-bottom: 3rem;
+      }
+      /* About Section */
+      .about-section {
+        background-color: #ffffff;
+        padding: 100px 0;
+        text-align: center;
+      }
+      .about-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+      }
+      .about-section p {
+        font-size: 1.25rem;
+      }
+      /* Menu Section */
+      .menu-section {
+        background-color: #f8f9fa;
+        padding: 100px 0;
+        text-align: center;
+      }
+      .menu-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+      }
+      .menu-item {
+        margin-bottom: 50px;
+      }
+      /* Testimonials Section */
+      .testimonials-section {
+        background-color: #563d7c;
+        color: #ffffff;
+        padding: 100px 0;
+        text-align: center;
+      }
+      .testimonial {
+        margin-bottom: 50px;
+      }
+      .testimonial p {
+        font-size: 1.25rem;
+      }
+      /* Contact Section */
+      .contact-section {
+        background-color: #333333;
+        color: #ffffff;
+        padding: 100px 0;
+        text-align: center;
+      }
+      .contact-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+      }
+      .contact-info {
+        margin-bottom: 30px;
+      }
+      .contact-info i {
+        font-size: 2rem;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">Coffee Lovers</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#menu">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="container-fluid flex- mt-4 bg-info">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-12 col-md-6 text-right">
-        <h1 class="text-white mt-2 mb-0">CHOCOLATE MILK.</h1>
-          <p class="text-white mt-0 text-end">This cholocate milk is the best in town.</p>
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <h1>Welcome to Coffee Lovers</h1>
+        <p>Where every sip tells a story</p>
+        <a class="btn btn-primary btn-lg" href="#menu" role="button"
+          >View Menu</a
+        >
       </div>
-      <div class="col-12 col-md-6 text-left">
-        img
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2>About Us</h2>
+        <p>
+          We are passionate about coffee and strive to provide the best
+          experience for our customers. From sourcing the finest beans to
+          crafting the perfect brew, we are dedicated to excellence in every
+          cup.
+        </p>
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-      </ul>
-      <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </section>
+
+    <section id="menu" class="menu-section">
+      <div class="container">
+        <h2>Our Menu</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="menu-item">
+              <img src="coffee1.jpg" class="img-fluid" alt="Coffee 1" />
+              <h3>Cappuccino</h3>
+              <p>Espresso with steamed milk and foam</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="menu-item">
+              <img src="coffee2.jpg" class="img-fluid" alt="Coffee 2" />
+              <h3>Latte</h3>
+              <p>Espresso with steamed milk and a small amount of foam</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="menu-item">
+              <img src="coffee3.jpg" class="img-fluid" alt="Coffee 3" />
+              <h3>Americano</h3>
+              <p>Espresso with hot water</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section">
+      <div class="container">
+        <h2>Testimonials</h2>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="testimonial">
+              <p>
+                "The best coffee I've ever had! I keep coming back for more."
+              </p>
+              <p>- John Doe</p>
+            </div>
+            <div class="testimonial">
+              <p>
+                "Such a cozy atmosphere and delicious drinks. Highly recommend!"
+              </p>
+              <p>- Jane Smith</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="contact-info">
+              <i class="fas fa-map-marker-alt"></i> 123 Coffee St, Cityville, CO
+              12345
+            </div>
+            <div class="contact-info">
+              <i class="fas fa-phone"></i> (123) 456-7890
+            </div>
+            <div class="contact-info">
+              <i class="fas fa-envelope"></i> info@coffeelovers.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 Coffee Lovers. All rights reserved.</p>
+      </div>
     </footer>
-  </div>
-</div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
