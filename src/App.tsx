@@ -1,30 +1,54 @@
+import { useState } from "react"; 
+import Todos from "./components/Todos";
+import Users from "./components/Users";
+import Posts from "./components/Posts";
 
-import useArrayHook from "./hooks/useArrayHook";
+export type TodosType = {
+  id: number;
+  completed: boolean;
+  title: string;
+}
+
+export type UsersType = {
+  id: number;
+  name: string;
+  username: string;
+  email:string;
+}
+
+export type PostsType = {
+  id: number;
+  body: string;
+  title: string;
+}
+
 
 function App () {
  
-  const {remove, state, set, filter, replace, clear, pushOnFirst, pushOnLast} = useArrayHook([1,3, 9, 4,5,6]);
+  const [state, setState] = useState('');
 
-  
+  function getComponent() {
+    return {
+      'todos': <Todos />,
+      'posts': <Posts />,
+      'users': <Users />
+    }[state]
+  }
+
   return (
-<>
-    <div className="flex flex-col h-screen justify-center items-center">
-      <h2 className="text-1xl mb-20 font-semibold">Applying Custom Hook</h2>
+  <>
+  <div className="flex justify-center items-center space-x-5 pt-52 py-20">
+     <button className="p-2 rounded-md bg-sky-500 text-white text-sm font-bold" onClick={() => setState('todos')}>Todos</button>
+     <button className="p-2 rounded-md bg-red-500 text-white text-sm font-bold" onClick={() => setState('posts')}>Posts</button>
+     <button className="p-2 rounded-md bg-green-500 text-white text-sm font-bold" onClick={() => setState('users')}>Users</button>
+  </div>
+     <div className="flex flex-col h-1/2 items-start justify-center">
 
-      <p className="font-sm text-2xl text-gray-800 mb-10">Array: [ {state.join(', ')} ]</p>
+      {getComponent()}
+
+     </div>
 
 
-    <button onClick={() => set([2, 4, 5, 6, 7])} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Set to {`[2, 4, 5, 6, 7]`}</button>
-    <button onClick={remove} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Remove Last Index</button>
-    
-    <button onClick={() => filter(val => val > 2)} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Filter Array {`>`} 2</button>
-    
-    <button onClick={clear} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Clear</button>
-    <button onClick={() => replace(2, 4)} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Replace Index: 2 with 4</button>
-    <button onClick={pushOnFirst} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Push Random Value on First Index</button>
-    <button onClick={pushOnLast} className="py-2 rounded-md mt-2 px-3 bg-gray-500 text-white font-semibold"  type="button">Push Random Value on Last Index</button>
-    
-  </div> 
       
   </> 
   )   
