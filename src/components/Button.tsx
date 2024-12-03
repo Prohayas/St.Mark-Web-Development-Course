@@ -1,17 +1,13 @@
-
-
 type ButtonProps = {
+  type: "submit" | "reset" | "button" | undefined;
+  title: string;
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
+};
 
-    type: "submit" | "reset" | "button" | undefined,
-    title: string,
-    onClick?: () => void,
-    className?: string
-}
+const Button = (props: ButtonProps) => {
+  return <button {...props}>{props.title}</button>;
+};
 
-const Button = ({ type, title, onClick, className }: ButtonProps) => {
-  return (
-    <button onClick={onClick} className={className} type={type}>{title}</button>
-  )
-}
-
-export default Button
+export default Button;
