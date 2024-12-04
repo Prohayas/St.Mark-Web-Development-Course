@@ -4,11 +4,9 @@ import Todo from "./module/Todo/Todo";
 function App() {
   return (
     <>
-      <section className="h-screen flex justify-center  items-center w-screen mx-auto">
+      <section className="container py-10 flex justify-center  items-center mx-auto">
         <TodoContextProvider>
-
-        <Todo />
-
+          <Todo />
         </TodoContextProvider>
       </section>
     </>

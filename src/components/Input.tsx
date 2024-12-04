@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 
 type InputTypes = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,28 +9,54 @@ type InputTypes = {
   labelStyle?: string;
   placeholder?: string;
   checked?: boolean;
+  className?: string;
+  defaultValue?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-const Input = forwardRef<HTMLInputElement, InputTypes>(function Input(
-  props,
-  ref
-) {
-  const { labelStyle, label, type, ...rest } = props;
+export type InputRef = {
+  focus: () => void;
+  value: () => string | undefined;
+  checked: () => boolean | undefined;
+  setValue: (val: string | undefined) => void;
+};
 
+const Input = forwardRef<InputRef, InputTypes>(function Input(props, ref) {
+  const { labelStyle, label, type, className, ...rest } = props;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputRef.current?.focus();
+    },
+    value() {
+      return inputRef.current?.value;
+    },
+    checked() {
+      return inputRef.current?.checked;
+    },
+    setValue(val) {
+      if (!inputRef.current) return;
+      inputRef.current.value = String(val);
+    },
+  }));
   return (
     <>
       <label className={`${labelStyle} text-sm text-gray- font-semibold`}>
-        {label}
+        <span>{label}</span>
 
         <input
           {...rest}
           type={type}
-          className={`${
-            type === "text" || type === "number"
-              ? "px-2 py-1 mb-5 w-full border-b focus:outline-none border-b-gray-600 text-sm"
-              : "cursor-pointer"
-          }`}
-          ref={ref}
+          className={
+            `${
+              type === "text" || type === "number"
+                ? "px-2 w-full py-1 mb-5 border-b focus:outline-none border-b-gray-600 text-sm "
+                : "cursor-pointer "
+            }` + className
+          }
+          ref={inputRef}
         />
       </label>
     </>

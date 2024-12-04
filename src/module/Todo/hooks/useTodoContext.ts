@@ -4,7 +4,9 @@ import TodoContext from "../context/TodoContext";
 const useTodoContext = () => {
   const context = useContext(TodoContext);
 
-  if (!context) return;
+  if (!context) {
+    throw Error("Context not found");
+  }
 
   return context;
 };

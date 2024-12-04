@@ -1,36 +1,154 @@
+import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button";
-import Input from "../../components/Input";
+import Input, { InputRef } from "../../components/Input";
 import useTodoContext from "./hooks/useTodoContext";
+import TodoItem from "./TodoItem";
 
 const Todo = () => {
-  const { state, setTodo, todo, dispatch } = useTodoContext();
+  const { dispatch, state } = useTodoContext();
+  const todoRef = useRef<InputRef>(null);
+  const [idCount, setIdCount] = useState(1);
 
+  useEffect(() => {
+    dispatch({ type: "set_todo" });
+  }, [state.todos]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch({
+      type: "add_todo",
+      payload: {
+        todoTitle: todoRef.current?.value(),
+        todoId: idCount,
+      },
+    });
+
+    setIdCount((prev) => prev + 1);
+
+    todoRef.current?.setValue("");
+  };
+
+  const handleCompletedChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    dispatch({
+      type: "change_completed",
+      payload: { value: e.target.checked, todoId: id },
+    });
+  };
+
+  const handleEdit = (id: number) => {
+    dispatch({
+      type: "toggle_edit_todo",
+      payload: { todoId: id },
+    });
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "search_todo", query: e.target.value });
+  };
+
+  const handleUpdateTodo = (
+    e: React.FocusEvent<HTMLInputElement, Element>,
+    id: number
+  ) => {
+    dispatch({
+      type: "update_todo",
+      payload: { todo: e.target.value, todoId: id },
+    });
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch({ type: "remove_todo", todoId: id });
+  };
   return (
     <div className="grid grid-cols-2 gap-x-10">
-      <div className="p-5">
+      <form onSubmit={handleSubmit} className="p-5">
         <h1 className="text-1xl text-gray-800 font-semibold mb-9">Add Todo</h1>
         <Input
           type="text"
           label="Todo"
           labelStyle="text-gray-800"
           placeholder="Todo here..."
-          onChange={(e) => setTodo(e.target.value)}
+          className="w-full"
+          ref={todoRef}
         />
         <Button
           title="Submit"
-          className="w-full rounded-md font-semibold bg-blue-200 py-2 px-3 text-gray-800 outline-none hover:text-black hover:bg-blue-300"
-          type="button"
-          onClick={() => dispatch({ type: "add_todo", todoTitle: todo })}
+          className="w-full rounded-md font-semibold bg-blue-500 py-1 px-3 text-white outline-none  hover:bg-blue-400"
+          type="submit"
         />
-      </div>
+      </form>
       <div className="p-5">
         <h1 className="text-1xl text-gray-800 font-semibold mb-9">
           Your Todos
         </h1>
-        <Input type="text" label="Search Todo" placeholder="Your todo..." />
-        {state.map((todo) => {
-          todo.title;
-        })}
+
+        <div className="flex items-center gap-x-5 justify-between">
+          <Input
+            type="text"
+            label="Search Todo"
+            placeholder="Your todo..."
+            onChange={handleSearch}
+          />
+          <Button
+            title={state.isHide ? "Show" : "Hide"}
+            type="button"
+            onClick={() => {
+              dispatch({ type: "hide_completed_todo" });
+            }}
+            className="py-1 px-3 text-sm text-white rounded-md bg-blue-500 hover:bg-blue-400 "
+          />
+        </div>
+        <TodoItem
+          todos={state.filteredTodos}
+          renderItem={(todo) => (
+            <ul className="flex flex-col justify-start items-start">
+              <li className="flex w-full justify-start gap-x-5 items-center">
+                <Input
+                  type="checkbox"
+                  checked={todo.completed}
+                  onChange={(e) => handleCompletedChange(e, todo.id)}
+                />
+                <span>{todo.id}</span>
+
+                {todo.isEditing ? (
+                  <Input
+                    type="text"
+                    defaultValue={todo.title}
+                    className="text-sm flex-1"
+                    onBlur={(e) => handleUpdateTodo(e, todo.id)}
+                  />
+                ) : (
+                  <span
+                    className={`text-md font-light flex-1 ${
+                      todo.completed ? "line-through" : ""
+                    }`}
+                  >
+                    {todo.title}
+                  </span>
+                )}
+                <div className="flex space-x-2 justify-end ">
+                  <Button
+                    type="button"
+                    title={todo.isEditing ? "Save" : "Edit"}
+                    onClick={() => handleEdit(todo.id)}
+                    className="text-green-500 font-thin text-sm hover:underline"
+                  />
+
+                  <Button
+                    type="button"
+                    title="Delete"
+                    onClick={() => handleDelete(todo.id)}
+                    className="text-red-500 font-thin text-sm hover:underline"
+                  />
+                </div>
+              </li>
+            </ul>
+          )}
+        />
       </div>
     </div>
   );

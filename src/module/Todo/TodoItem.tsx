@@ -1,9 +1,15 @@
-import React, { useContext } from "react";
+import React, { ReactNode } from "react";
+import { TodosType } from "../../types/types";
 
-const TodoItem = () => {
+type TodoItemType = {
+  todos: TodosType[];
+  renderItem: (todo: TodosType) => ReactNode;
+};
 
-  const { state } = useContext()
-  return <div>TodoItem</div>;
+const TodoItem = ({ todos, renderItem }: TodoItemType) => {
+  return todos.map((todo) => (
+    <React.Fragment key={todo.id}>{renderItem(todo)}</React.Fragment>
+  ));
 };
 
 export default TodoItem;
