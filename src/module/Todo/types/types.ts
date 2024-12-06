@@ -7,6 +7,7 @@ export type ActionType =
     }
   | {
       type: "set_todo";
+      payload: { todos: TodosType[] };
     }
   | {
       type: "toggle_edit_todo";

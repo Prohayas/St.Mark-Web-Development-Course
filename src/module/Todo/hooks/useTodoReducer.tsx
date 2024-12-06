@@ -1,11 +1,18 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { ActionType, InitialStateReducerType } from "../types/types";
 
-const initialState: InitialStateReducerType = {
-  todos: [],
-  isHide: false,
-  filteredTodos: [],
+const loadInitialState = (): InitialStateReducerType => {
+  const savedTodos = localStorage.getItem("todos");
+  const todos = savedTodos ? JSON.parse(savedTodos) : [];
+
+  return {
+    todos: todos,
+    isHide: false,
+    filteredTodos: todos,
+  };
 };
+
+const initialState: InitialStateReducerType = loadInitialState();
 
 const reducer = (state: InitialStateReducerType, action: ActionType) => {
   switch (action.type) {
@@ -28,11 +35,10 @@ const reducer = (state: InitialStateReducerType, action: ActionType) => {
     }
 
     case "set_todo": {
-      const todos = JSON.parse(localStorage.getItem("todos") || "[]");
       return {
         ...state,
-        filteredTodos: todos,
-      };
+        filteredTodos: action.payload.todos
+      }
     }
 
     case "search_todo": {
@@ -121,6 +127,10 @@ const reducer = (state: InitialStateReducerType, action: ActionType) => {
 
 const useTodoReducer = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    JSON.parse(localStorage.getItem("todos") || "[]");
+  }, [state.todos]);
 
   return { state, dispatch };
 };

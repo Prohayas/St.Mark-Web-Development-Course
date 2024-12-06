@@ -7,24 +7,27 @@ import TodoItem from "./TodoItem";
 const Todo = () => {
   const { dispatch, state } = useTodoContext();
   const todoRef = useRef<InputRef>(null);
-  const [idCount, setIdCount] = useState(1);
 
   useEffect(() => {
-    dispatch({ type: "set_todo" });
+    const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+    dispatch({ type: "set_todo", payload: { todos: todos } });
   }, [state.todos]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (todoRef.current?.value() === "") {
+      return todoRef.current.focus();
+    }
+
     dispatch({
       type: "add_todo",
       payload: {
         todoTitle: todoRef.current?.value(),
-        todoId: idCount,
+        todoId: Date.now(),
       },
     });
-
-    setIdCount((prev) => prev + 1);
 
     todoRef.current?.setValue("");
   };
@@ -51,7 +54,7 @@ const Todo = () => {
   };
 
   const handleUpdateTodo = (
-    e: React.FocusEvent<HTMLInputElement, Element>,
+    e: React.ChangeEvent<HTMLInputElement>,
     id: number
   ) => {
     dispatch({
@@ -112,14 +115,20 @@ const Todo = () => {
                   checked={todo.completed}
                   onChange={(e) => handleCompletedChange(e, todo.id)}
                 />
-                <span>{todo.id}</span>
-
                 {todo.isEditing ? (
                   <Input
                     type="text"
                     defaultValue={todo.title}
                     className="text-sm flex-1"
-                    onBlur={(e) => handleUpdateTodo(e, todo.id)}
+                    onChange={(e) => handleUpdateTodo(e, todo.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        dispatch({
+                          type: "toggle_edit_todo",
+                          payload: { todoId: todo.id },
+                        });
+                      }
+                    }}
                   />
                 ) : (
                   <span
