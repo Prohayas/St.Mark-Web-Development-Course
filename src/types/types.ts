@@ -1,7 +1,7 @@
 export type TodosType = {
   id: number;
   completed: boolean;
-  title: string | undefined;
+  todo: string | undefined;
   isEditing: boolean;
 };
 

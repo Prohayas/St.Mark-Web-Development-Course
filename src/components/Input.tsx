@@ -4,6 +4,7 @@ type InputTypes = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
   type: "text" | "number" | "checkbox" | "file" | "radio";
+  disabled?: boolean;
   id?: string;
   label?: string;
   labelStyle?: string;

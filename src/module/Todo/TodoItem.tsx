@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, memo } from "react";
 import { TodosType } from "../../types/types";
 
 type TodoItemType = {
@@ -12,4 +12,4 @@ const TodoItem = ({ todos, renderItem }: TodoItemType) => {
   ));
 };
 
-export default TodoItem;
+export default memo(TodoItem);
